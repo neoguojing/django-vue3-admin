@@ -1,0 +1,28 @@
+version: "3"
+services:
+  dvadmin3-web:
+    container_name: dvadmin3-web
+    ports:
+      - "8080:8080"
+    build:
+      context: ./
+      dockerfile: ./docker_env/web/Dockerfile
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      - ./docker_env/nginx/my.conf:/etc/nginx/conf.d/my.conf
+      - ./backend/media:/backend/media
+    expose:
+      - "8080"
+    restart: always
+    networks:
+      network:
+        ipv4_address: 177.10.0.11
+        
+networks:
+  network:
+    ipam:
+      driver: default
+      config:
+        - subnet: '177.10.0.0/16'
+
